@@ -1,4 +1,4 @@
-package domain;
+package entity;
 
 /**
  * 모든 도형의 공통적인 기능을 정의하는 추상 클래스.
