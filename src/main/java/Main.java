@@ -1,19 +1,23 @@
-import io.RentCompany;
-import Model.Avante;
-import Model.K5;
-import Model.Sonata;
+import io.CoordinateInput;
+import model.Point;
+import model.DistanceCalculator;
+import io.CoordinateView;
 
 public class Main {
+
     public static void main(String[] args) {
-        RentCompany company = RentCompany.getInstance(); // 싱글톤 인스턴스 사용
+        // 입력
+        CoordinateInput coordinateInput = new CoordinateInput();
+        // 출력
+        CoordinateView coordinateView = new CoordinateView();
 
-        company.addCar(new Sonata(150));
-        company.addCar(new K5(260));
-        company.addCar(new Sonata(120));
-        company.addCar(new Avante(300));
-        company.addCar(new K5(390));
-
-        String report = company.generateReport();
-        System.out.println(report);
+        // 두 좌표 입력 받기
+        Point[] points = coordinateInput.getCoordinates();
+        // 입력 체크
+        if (points.length == 2) {
+            // 거리 계산
+            double distance = DistanceCalculator.calculate(points[0], points[1]);
+            coordinateView.printDistance(distance);
+        }
     }
 }
