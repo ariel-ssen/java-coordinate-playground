@@ -3,27 +3,23 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 문자열 입력을 기반으로 적절한 도형 객체를 생성하는 클래스.
- * 직사각형(Rectangle)만
- */
 public class ShapeFactory {
-    /**
-     * 문자열 입력을 받아 도형 객체를 생성합니다.
-     * 예: "(10,10)-(22,10)-(22,18)-(10,18)" -> Rectangle 객체
-     */
     public static Shape createShape(String input) {
-        String[] pointStrings = input.split("-"); // "-"로 좌표 문자열 구분
+        String[] pointStrings = input.split("-");
         List<Point> points = new ArrayList<>();
 
         for (String pointString : pointStrings) {
-            points.add(Point.fromString(pointString)); // 문자열 -> Point 변환
+            points.add(Point.fromString(pointString));
         }
 
-        if (points.size() == 4) { // 4개의 점이면 직사각형 생성
-            return Rectangle.fromPoints(points);
+        if (points.size() == 2) {
+            return new Line(points.get(0), points.get(1));
         }
 
-        throw new UnsupportedOperationException("Unsupported shape with the given points."); // 예외 처리
+        if (points.size() == 3) {
+            return Triangle.fromPoints(points);
+        }
+
+        throw new IllegalArgumentException("지원하지 않는 점 개수입니다. 직선(2점) 또는 삼각형(3점)을 입력하세요.");
     }
 }
